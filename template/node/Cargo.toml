@@ -48,7 +48,7 @@ sc-service = { version = "0.10.0-dev", git = "https://github.com/axtend/axlib", 
 sc-telemetry = { version = "4.0.0-dev", git = "https://github.com/axtend/axlib", branch = "c92f69d" }
 sc-transaction-pool = { version = "4.0.0-dev", git = "https://github.com/axtend/axlib", branch = "c92f69d" }
 sc-transaction-pool-api = { version = "4.0.0-dev", git = "https://github.com/axtend/axlib", branch = "c92f69d" }
-substrate-frame-rpc-system = { version = "4.0.0-dev", git = "https://github.com/axtend/axlib", branch = "c92f69d" }
+axlib-frame-rpc-system = { version = "4.0.0-dev", git = "https://github.com/axtend/axlib", branch = "c92f69d" }
 pallet-transaction-payment-rpc = { version = "4.0.0-dev", git = "https://github.com/axtend/axlib", branch = "c92f69d" }
 
 # These dependencies are used for runtime benchmarking
@@ -73,7 +73,7 @@ pallet-evm = { path = "../../frame/evm" }
 frontier-template-runtime = { path = "../runtime", default-features = false, features = ["std"] }
 
 [build-dependencies]
-substrate-build-script-utils = { version = "3.0.0", git = "https://github.com/axtend/axlib", branch = "c92f69d" }
+axlib-build-script-utils = { version = "3.0.0", git = "https://github.com/axtend/axlib", branch = "c92f69d" }
 
 [features]
 default = ["aura"]
