@@ -2,11 +2,11 @@
 
 ## Supported versions
 
-Currently, only the latest master commit pin is supported. This will be extended back to releases as soon as we fix the Substrate release pipeline.
+Currently, only the latest master commit pin is supported. This will be extended back to releases as soon as we fix the Axlib release pipeline.
 
 ## Reporting vulnerabilities
 
-For medium or high severity security vulnerabilities, please report them by email to security@parity.io. If you think your report might be eligible for the Parity Bug Bounty Program, your email should be sent to bugbounty@parity.io. Please make sure to follow [guidelines](https://www.parity.io/bug-bounty/) when reporting.
+For medium or high severity security vulnerabilities, please report them by email to security@parity.io. If you think your report might be eligible for the Axia Bug Bounty Program, your email should be sent to bugbounty@parity.io. Please make sure to follow [guidelines](https://www.parity.io/bug-bounty/) when reporting.
 
 For low severity security vulnerabilities, you can either follow the above reporting pipeline or open an issue in the Frontier repo directly. If you are unsure about the severity of the vulnerability you're reporting, please reach out to [Wei](mailto:wei@parity.io).
 

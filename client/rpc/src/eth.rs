@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later WITH Classpath-exception-2.0
 // This file is part of Frontier.
 //
-// Copyright (c) 2020 Parity Technologies (UK) Ltd.
+// Copyright (c) 2020 Axia Technologies (UK) Ltd.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -361,7 +361,7 @@ where
 
 	while current_number <= to {
 		let id = BlockId::Number(current_number);
-		let substrate_hash = client
+		let axlib_hash = client
 			.expect_block_hash_from_id(&id)
 			.map_err(|_| internal_err(format!("Expect block number from id: {}", id)))?;
 
@@ -370,14 +370,14 @@ where
 			id,
 		);
 
-		let block = block_data_cache.current_block(schema, substrate_hash).await;
+		let block = block_data_cache.current_block(schema, axlib_hash).await;
 
 		if let Some(block) = block {
 			if FilteredParams::address_in_bloom(block.header.logs_bloom, &address_bloom_filter)
 				&& FilteredParams::topics_in_bloom(block.header.logs_bloom, &topics_bloom_filter)
 			{
 				let statuses = block_data_cache
-					.current_transaction_statuses(schema, substrate_hash)
+					.current_transaction_statuses(schema, axlib_hash)
 					.await;
 				if let Some(statuses) = statuses {
 					filter_block_logs(ret, filter, block, statuses);
@@ -532,8 +532,8 @@ where
 				starting_block: U256::zero(),
 				current_block: block_number,
 				// TODO `highest_block` is not correct, should load `best_seen_block` from NetworkWorker,
-				// but afaik that is not currently possible in Substrate:
-				// https://github.com/paritytech/substrate/issues/7311
+				// but afaik that is not currently possible in Axlib:
+				// https://github.com/paritytech/axlib/issues/7311
 				highest_block: block_number,
 				warp_chunks_amount: None,
 				warp_chunks_processed: None,
@@ -674,7 +674,7 @@ where
 				Some(hash) => hash,
 				_ => return Ok(None),
 			};
-			let substrate_hash = client
+			let axlib_hash = client
 				.expect_block_hash_from_id(&id)
 				.map_err(|_| internal_err(format!("Expect block number from id: {}", id)))?;
 
@@ -685,9 +685,9 @@ where
 				.get(&schema)
 				.unwrap_or(&overrides.fallback);
 
-			let block = block_data_cache.current_block(schema, substrate_hash).await;
+			let block = block_data_cache.current_block(schema, axlib_hash).await;
 			let statuses = block_data_cache
-				.current_transaction_statuses(schema, substrate_hash)
+				.current_transaction_statuses(schema, axlib_hash)
 				.await;
 
 			let base_fee = handler.base_fee(&id);
@@ -708,7 +708,7 @@ where
 					let number = rich_block.inner.header.number.unwrap_or_default();
 					if rich_block.inner.header.parent_hash == H256::default() 
 						&& number > U256::zero() {
-							let id = BlockId::Hash(substrate_hash);
+							let id = BlockId::Hash(axlib_hash);
 							if let Ok(Some(header)) = client.header(id) {
 								let parent_hash = *header.parent_hash();
 	
@@ -748,7 +748,7 @@ where
 				Some(id) => id,
 				None => return Ok(None),
 			};
-			let substrate_hash = client
+			let axlib_hash = client
 				.expect_block_hash_from_id(&id)
 				.map_err(|_| internal_err(format!("Expect block number from id: {}", id)))?;
 
@@ -759,9 +759,9 @@ where
 				.get(&schema)
 				.unwrap_or(&overrides.fallback);
 
-			let block = block_data_cache.current_block(schema, substrate_hash).await;
+			let block = block_data_cache.current_block(schema, axlib_hash).await;
 			let statuses = block_data_cache
-				.current_transaction_statuses(schema, substrate_hash)
+				.current_transaction_statuses(schema, axlib_hash)
 				.await;
 
 			let base_fee = handler.base_fee(&id);
@@ -786,7 +786,7 @@ where
 					if rich_block.inner.header.parent_hash == H256::default() 
 						&& number > U256::zero() {
 						
-						let id = BlockId::Hash(substrate_hash);
+						let id = BlockId::Hash(axlib_hash);
 						if let Ok(Some(header)) = client.header(id) {
 							let parent_hash = *header.parent_hash();
 
@@ -1472,11 +1472,11 @@ where
 			};
 
 			let get_current_block_gas_limit = || async {
-				let substrate_hash = client.info().best_hash;
-				let id = BlockId::Hash(substrate_hash);
+				let axlib_hash = client.info().best_hash;
+				let id = BlockId::Hash(axlib_hash);
 				let schema =
 					frontier_backend_client::onchain_storage_schema::<B, C, BE>(&client, id);
-				let block = block_data_cache.current_block(schema, substrate_hash).await;
+				let block = block_data_cache.current_block(schema, axlib_hash).await;
 				if let Some(block) = block {
 					Ok(block.header.gas_limit)
 				} else {
@@ -1878,7 +1878,7 @@ where
 				Some(hash) => hash,
 				_ => return Ok(None),
 			};
-			let substrate_hash = client
+			let axlib_hash = client
 				.expect_block_hash_from_id(&id)
 				.map_err(|_| internal_err(format!("Expect block number from id: {}", id)))?;
 
@@ -1889,9 +1889,9 @@ where
 				.get(&schema)
 				.unwrap_or(&overrides.fallback);
 
-			let block = block_data_cache.current_block(schema, substrate_hash).await;
+			let block = block_data_cache.current_block(schema, axlib_hash).await;
 			let statuses = block_data_cache
-				.current_transaction_statuses(schema, substrate_hash)
+				.current_transaction_statuses(schema, axlib_hash)
 				.await;
 
 			let base_fee = handler.base_fee(&id);
@@ -1927,7 +1927,7 @@ where
 				Some(hash) => hash,
 				_ => return Ok(None),
 			};
-			let substrate_hash = client
+			let axlib_hash = client
 				.expect_block_hash_from_id(&id)
 				.map_err(|_| internal_err(format!("Expect block number from id: {}", id)))?;
 
@@ -1940,9 +1940,9 @@ where
 				.get(&schema)
 				.unwrap_or(&overrides.fallback);
 
-			let block = block_data_cache.current_block(schema, substrate_hash).await;
+			let block = block_data_cache.current_block(schema, axlib_hash).await;
 			let statuses = block_data_cache
-				.current_transaction_statuses(schema, substrate_hash)
+				.current_transaction_statuses(schema, axlib_hash)
 				.await;
 
 			let base_fee = handler.base_fee(&id);
@@ -1988,7 +1988,7 @@ where
 				Some(id) => id,
 				None => return Ok(None),
 			};
-			let substrate_hash = client
+			let axlib_hash = client
 				.expect_block_hash_from_id(&id)
 				.map_err(|_| internal_err(format!("Expect block number from id: {}", id)))?;
 
@@ -2000,9 +2000,9 @@ where
 				.get(&schema)
 				.unwrap_or(&overrides.fallback);
 
-			let block = block_data_cache.current_block(schema, substrate_hash).await;
+			let block = block_data_cache.current_block(schema, axlib_hash).await;
 			let statuses = block_data_cache
-				.current_transaction_statuses(schema, substrate_hash)
+				.current_transaction_statuses(schema, axlib_hash)
 				.await;
 
 			let base_fee = handler.base_fee(&id);
@@ -2054,7 +2054,7 @@ where
 				Some(hash) => hash,
 				_ => return Ok(None),
 			};
-			let substrate_hash = client
+			let axlib_hash = client
 				.expect_block_hash_from_id(&id)
 				.map_err(|_| internal_err(format!("Expect block number from id: {}", id)))?;
 
@@ -2065,9 +2065,9 @@ where
 				.get(&schema)
 				.unwrap_or(&overrides.fallback);
 
-			let block = block_data_cache.current_block(schema, substrate_hash).await;
+			let block = block_data_cache.current_block(schema, axlib_hash).await;
 			let statuses = block_data_cache
-				.current_transaction_statuses(schema, substrate_hash)
+				.current_transaction_statuses(schema, axlib_hash)
 				.await;
 			let receipts = handler.current_receipts(&id);
 			let is_eip1559 = handler.is_eip1559(&id);
@@ -2235,7 +2235,7 @@ where
 					Some(hash) => hash,
 					_ => return Ok(Vec::new()),
 				};
-				let substrate_hash = client
+				let axlib_hash = client
 					.expect_block_hash_from_id(&id)
 					.map_err(|_| internal_err(format!("Expect block number from id: {}", id)))?;
 
@@ -2244,9 +2244,9 @@ where
 					id,
 				);
 
-				let block = block_data_cache.current_block(schema, substrate_hash).await;
+				let block = block_data_cache.current_block(schema, axlib_hash).await;
 				let statuses = block_data_cache
-					.current_transaction_statuses(schema, substrate_hash)
+					.current_transaction_statuses(schema, axlib_hash)
 					.await;
 				if let (Some(block), Some(statuses)) = (block, statuses) {
 					filter_block_logs(&mut ret, &filter, block, statuses);
@@ -2749,7 +2749,7 @@ where
 					let mut ethereum_hashes: Vec<H256> = Vec::new();
 					for n in last..next {
 						let id = BlockId::Number(n.unique_saturated_into());
-						let substrate_hash =
+						let axlib_hash =
 							client.expect_block_hash_from_id(&id).map_err(|_| {
 								internal_err(format!("Expect block number from id: {}", id))
 							})?;
@@ -2759,7 +2759,7 @@ where
 							id,
 						);
 
-						let block = block_data_cache.current_block(schema, substrate_hash).await;
+						let block = block_data_cache.current_block(schema, axlib_hash).await;
 						if let Some(block) = block {
 							ethereum_hashes.push(block.header.hash())
 						}

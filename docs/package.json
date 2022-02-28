@@ -4,7 +4,7 @@
   "description": "Frontier documentation.",
   "authors": {
     "name": "admin@parity.io",
-    "email": "Parity Technologies"
+    "email": "Axia Technologies"
   },
   "repository": "https://github.com/paritytech/frontier",
   "scripts": {

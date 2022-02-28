@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later WITH Classpath-exception-2.0
 // This file is part of Frontier.
 //
-// Copyright (c) 2020 Parity Technologies (UK) Ltd.
+// Copyright (c) 2020 Axia Technologies (UK) Ltd.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ const LIMIT: usize = 8;
 #[derive(PartialEq, Copy, Clone)]
 pub enum SyncStrategy {
 	Normal,
-	Parachain,
+	Allychain,
 }
 
 pub struct MappingSyncWorker<Block: BlockT, C, B> {
@@ -43,7 +43,7 @@ pub struct MappingSyncWorker<Block: BlockT, C, B> {
 	inner_delay: Option<Delay>,
 
 	client: Arc<C>,
-	substrate_backend: Arc<B>,
+	axlib_backend: Arc<B>,
 	frontier_backend: Arc<fc_db::Backend<Block>>,
 
 	have_next: bool,
@@ -56,7 +56,7 @@ impl<Block: BlockT, C, B> MappingSyncWorker<Block, C, B> {
 		import_notifications: ImportNotifications<Block>,
 		timeout: Duration,
 		client: Arc<C>,
-		substrate_backend: Arc<B>,
+		axlib_backend: Arc<B>,
 		frontier_backend: Arc<fc_db::Backend<Block>>,
 		strategy: SyncStrategy,
 	) -> Self {
@@ -66,7 +66,7 @@ impl<Block: BlockT, C, B> MappingSyncWorker<Block, C, B> {
 			inner_delay: None,
 
 			client,
-			substrate_backend,
+			axlib_backend,
 			frontier_backend,
 
 			have_next: true,
@@ -116,7 +116,7 @@ where
 
 			match crate::sync_blocks(
 				self.client.as_ref(),
-				self.substrate_backend.blockchain(),
+				self.axlib_backend.blockchain(),
 				self.frontier_backend.as_ref(),
 				LIMIT,
 				self.strategy,

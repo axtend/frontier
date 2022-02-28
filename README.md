@@ -3,7 +3,7 @@
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/paritytech/frontier/Rust)](https://github.com/paritytech/frontier/actions)
 [![Matrix](https://img.shields.io/matrix/frontier:matrix.org)](https://matrix.to/#/#frontier:matrix.org)
 
-Frontier is Substrate's Ethereum compatibility layer. It allows you to run
+Frontier is Axlib's Ethereum compatibility layer. It allows you to run
 unmodified Ethereum dapps.
 
 The goal of Ethereum compatibility layer is to be able to:
@@ -56,7 +56,7 @@ functionalities of the EVM executor.
 * `pallet-evm-precompile-sha3fips`: Standard SHA3 precompile.
   ![Crates.io](https://img.shields.io/crates/v/pallet-evm-precompile-sha3fips)
 * `pallet-evm-precompile-dispatch`: Enable interoperability between EVM
-  contracts and other Substrate runtime components.
+  contracts and other Axlib runtime components.
   ![Crates.io](https://img.shields.io/crates/v/pallet-evm-precompile-dispatch)
 
 ### Client-side libraries

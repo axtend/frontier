@@ -1,13 +1,13 @@
 [package]
 name = "frontier-template-node"
 version = "0.0.0"
-authors = ["Substrate DevHub <https://github.com/substrate-developer-hub>"]
-description = "A fresh FRAME-based Substrate node, ready for hacking."
+authors = ["Axlib DevHub <https://github.com/axlib-developer-hub>"]
+description = "A fresh FRAME-based Axlib node, ready for hacking."
 edition = "2021"
 license = "Unlicense"
 build = "build.rs"
-homepage = "https://substrate.io"
-repository = "https://github.com/substrate-developer-hub/frontier-node-template/"
+homepage = "https://axlib.io"
+repository = "https://github.com/axlib-developer-hub/frontier-node-template/"
 publish = false
 
 [package.metadata.docs.rs]

@@ -1,9 +1,9 @@
 [package]
 name = "pallet-ethereum"
 version = "4.0.0-dev"
-authors = ["Parity Technologies <admin@parity.io>"]
+authors = ["Axia Technologies <admin@parity.io>"]
 edition = "2021"
-description = "Ethereum compatibility full block processing emulation pallet for Substrate."
+description = "Ethereum compatibility full block processing emulation pallet for Axlib."
 license = "Apache-2.0"
 
 [dependencies]

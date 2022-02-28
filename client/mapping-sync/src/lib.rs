@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later WITH Classpath-exception-2.0
 // This file is part of Frontier.
 //
-// Copyright (c) 2020 Parity Technologies (UK) Ltd.
+// Copyright (c) 2020 Axia Technologies (UK) Ltd.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -96,7 +96,7 @@ where
 
 pub fn sync_one_block<Block: BlockT, C, B>(
 	client: &C,
-	substrate_backend: &B,
+	axlib_backend: &B,
 	frontier_backend: &fc_db::Backend<Block>,
 	strategy: SyncStrategy,
 ) -> Result<bool, String>
@@ -108,7 +108,7 @@ where
 	let mut current_syncing_tips = frontier_backend.meta().current_syncing_tips()?;
 
 	if current_syncing_tips.is_empty() {
-		let mut leaves = substrate_backend.leaves().map_err(|e| format!("{:?}", e))?;
+		let mut leaves = axlib_backend.leaves().map_err(|e| format!("{:?}", e))?;
 		if leaves.is_empty() {
 			return Ok(false);
 		}
@@ -139,7 +139,7 @@ where
 		}
 	};
 
-	let operating_header = substrate_backend
+	let operating_header = axlib_backend
 		.header(BlockId::Hash(operating_tip))
 		.map_err(|e| format!("{:?}", e))?
 		.ok_or("Header not found".to_string())?;
@@ -152,7 +152,7 @@ where
 			.write_current_syncing_tips(current_syncing_tips)?;
 		Ok(true)
 	} else {
-		if SyncStrategy::Parachain == strategy
+		if SyncStrategy::Allychain == strategy
 			&& operating_header.number() > &client.info().best_number
 		{
 			return Ok(false);
@@ -169,7 +169,7 @@ where
 
 pub fn sync_blocks<Block: BlockT, C, B>(
 	client: &C,
-	substrate_backend: &B,
+	axlib_backend: &B,
 	frontier_backend: &fc_db::Backend<Block>,
 	limit: usize,
 	strategy: SyncStrategy,
@@ -183,7 +183,7 @@ where
 
 	for _ in 0..limit {
 		synced_any =
-			synced_any || sync_one_block(client, substrate_backend, frontier_backend, strategy)?;
+			synced_any || sync_one_block(client, axlib_backend, frontier_backend, strategy)?;
 	}
 
 	Ok(synced_any)

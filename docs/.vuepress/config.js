@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Frontier',
-  description: 'Ethereum compatibility layer for Substrate',
+  description: 'Ethereum compatibility layer for Axlib',
   base: '/frontier/',
 
   head: [

@@ -1,4 +1,4 @@
-//! The Substrate Node Template runtime. This can be compiled with `#[no_std]`, ready for Wasm.
+//! The Axlib Node Template runtime. This can be compiled with `#[no_std]`, ready for Wasm.
 
 #![cfg_attr(not(feature = "std"), no_std)]
 // `construct_runtime!` does a lot of recursion and requires us to increase the limit to 256.
@@ -195,9 +195,9 @@ impl frame_system::Config for Runtime {
 	type AccountData = pallet_balances::AccountData<Balance>;
 	/// Weight information for the extrinsics of this pallet.
 	type SystemWeightInfo = ();
-	/// This is used as an identifier of the chain. 42 is the generic substrate prefix.
+	/// This is used as an identifier of the chain. 42 is the generic axlib prefix.
 	type SS58Prefix = SS58Prefix;
-	/// The set code logic, just the default since we're not a parachain.
+	/// The set code logic, just the default since we're not a allychain.
 	type OnSetCode = ();
 	type MaxConsumers = ConstU32<16>;
 }

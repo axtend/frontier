@@ -1,6 +1,6 @@
-# Substrate EVM Utilities
+# Axlib EVM Utilities
 
-This directory is home to a Node.js project with some helpful utilities for working with Substrate
+This directory is home to a Node.js project with some helpful utilities for working with Axlib
 and the EVM pallet.
 
 ## Installation and Usage
@@ -26,7 +26,7 @@ node ./utils --erc20-slot 0 0xd43593c715fdd31c61141abd04a99fd6822c8558
 
 ### `--evm-address <address>`
 
-Calculate the **hashed** EVM address that corresponds to a native Substrate address.
+Calculate the **hashed** EVM address that corresponds to a native Axlib address.
 
 ```bash
 $ node ./utils --evm-address 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
@@ -35,7 +35,7 @@ $ 0x57d213d0927ccc7596044c6ba013dd05522aacba
 
 > NOTE: the template presently uses the **truncated** H160 address format. Thus this utility is not
 > needed. Instead, you should use the leading 20 bytes of the hex encoded address produced by the
-> [`subkey` tool](https://docs.substrate.io/v3/tools/subkey):
+> [`subkey` tool](https://docs.axlib.io/v3/tools/subkey):
 
 ```bash
 subkey inspect "//Alice"

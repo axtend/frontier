@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // This file is part of Frontier.
 //
-// Copyright (c) 2020 Parity Technologies (UK) Ltd.
+// Copyright (c) 2020 Axia Technologies (UK) Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 
 //! # EVM Pallet
 //!
-//! The EVM pallet allows unmodified EVM code to be executed in a Substrate-based blockchain.
+//! The EVM pallet allows unmodified EVM code to be executed in a Axlib-based blockchain.
 //! - [`evm::Config`]
 //!
 //! ## EVM Engine
@@ -27,11 +27,11 @@
 //!
 //! ## Execution Lifecycle
 //!
-//! There are a separate set of accounts managed by the EVM pallet. Substrate based accounts can call the EVM Pallet
-//! to deposit or withdraw balance from the Substrate base-currency into a different balance managed and used by
+//! There are a separate set of accounts managed by the EVM pallet. Axlib based accounts can call the EVM Pallet
+//! to deposit or withdraw balance from the Axlib base-currency into a different balance managed and used by
 //! the EVM pallet. Once a user has populated their balance, they can create and call smart contracts using this pallet.
 //!
-//! There's one-to-one mapping from Substrate accounts and EVM external accounts that is defined by a conversion function.
+//! There's one-to-one mapping from Axlib accounts and EVM external accounts that is defined by a conversion function.
 //!
 //! ## EVM Pallet vs Ethereum Network
 //!
@@ -41,11 +41,11 @@
 //! Observable differences include:
 //!
 //! - The available length of block hashes may not be 256 depending on the configuration of the System pallet
-//! in the Substrate runtime.
+//! in the Axlib runtime.
 //! - Difficulty and coinbase, which do not make sense in this pallet and is currently hard coded to zero.
 //!
 //! We currently do not aim to make unobservable behaviors, such as state root, to be the same. We also don't aim to follow
-//! the exact same transaction / receipt format. However, given one Ethereum transaction and one Substrate account's
+//! the exact same transaction / receipt format. However, given one Ethereum transaction and one Axlib account's
 //! private key, one should be able to convert any Ethereum transaction into a transaction compatible with this pallet.
 //!
 //! The gas configurations are configurable. Right now, a pre-defined London hard fork configuration option is provided.
@@ -106,7 +106,7 @@ pub mod pallet {
 		/// Calculator for current gas price.
 		type FeeCalculator: FeeCalculator;
 
-		/// Maps Ethereum gas to Substrate weight.
+		/// Maps Ethereum gas to Axlib weight.
 		type GasWeightMapping: GasWeightMapping;
 
 		/// Block number to block hash.
@@ -448,7 +448,7 @@ pub trait EnsureAddressOrigin<OuterOrigin> {
 	) -> Result<Self::Success, OuterOrigin>;
 }
 
-/// Ensure that the EVM address is the same as the Substrate address. This only works if the account
+/// Ensure that the EVM address is the same as the Axlib address. This only works if the account
 /// ID is `H160`.
 pub struct EnsureAddressSame;
 
@@ -546,16 +546,16 @@ pub trait BlockHashMapping {
 	fn block_hash(number: u32) -> H256;
 }
 
-/// Returns the Substrate block hash by number.
-pub struct SubstrateBlockHashMapping<T>(sp_std::marker::PhantomData<T>);
-impl<T: Config> BlockHashMapping for SubstrateBlockHashMapping<T> {
+/// Returns the Axlib block hash by number.
+pub struct AxlibBlockHashMapping<T>(sp_std::marker::PhantomData<T>);
+impl<T: Config> BlockHashMapping for AxlibBlockHashMapping<T> {
 	fn block_hash(number: u32) -> H256 {
 		let number = T::BlockNumber::from(number);
 		H256::from_slice(frame_system::Pallet::<T>::block_hash(number).as_ref())
 	}
 }
 
-/// A mapping function that converts Ethereum gas to Substrate weight
+/// A mapping function that converts Ethereum gas to Axlib weight
 pub trait GasWeightMapping {
 	fn gas_to_weight(gas: u64) -> Weight;
 	fn weight_to_gas(weight: Weight) -> u64;
@@ -726,14 +726,14 @@ where
 				.unwrap_or_else(|_| C::PositiveImbalance::zero());
 
 			// Make sure this works with 0 ExistentialDeposit
-			// https://github.com/paritytech/substrate/issues/10117
+			// https://github.com/paritytech/axlib/issues/10117
 			// If we tried to refund something, the account still empty and the ED is set to 0,
 			// we call `make_free_balance_be` with the refunded amount.
 			let refund_imbalance = if C::minimum_balance().is_zero()
 				&& refund_amount > C::Balance::zero()
 				&& C::total_balance(&account_id).is_zero()
 			{
-				// Known bug: Substrate tried to refund to a zeroed AccountData, but
+				// Known bug: Axlib tried to refund to a zeroed AccountData, but
 				// interpreted the account to not exist.
 				match C::make_free_balance_be(&account_id, refund_amount) {
 					SignedImbalance::Positive(p) => p,

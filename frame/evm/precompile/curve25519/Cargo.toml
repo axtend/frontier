@@ -1,10 +1,10 @@
 [package]
 name = "pallet-evm-precompile-curve25519"
 version = "1.0.0-dev"
-authors = ["Parity Technologies <admin@parity.io>", "Drew Stone <drew@webb.tools>"]
+authors = ["Axia Technologies <admin@parity.io>", "Drew Stone <drew@webb.tools>"]
 edition = "2021"
 license = "Apache-2.0"
-homepage = "https://substrate.io"
+homepage = "https://axlib.io"
 repository = "https://github.com/paritytech/frontier/"
 description = "Curve25519 elliptic curve precompiles for EVM pallet."
 

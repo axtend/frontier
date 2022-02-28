@@ -10,7 +10,7 @@ describeWithFrontier("Frontier RPC (Constant)", (context) => {
 	});
 
 	it("should have chainId 42", async function () {
-		// The chainId is defined by the Substrate Chain Id, default to 42
+		// The chainId is defined by the Axlib Chain Id, default to 42
 		expect(await context.web3.eth.getChainId()).to.equal(42);
 	});
 
