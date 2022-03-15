@@ -11,7 +11,7 @@
     "ethereum",
     "axlib"
   ],
-  "author": "Axia Technologies <admin@parity.io>",
+  "author": "Axia Technologies <admin@axia.io>",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/paritytech/frontier/issues"

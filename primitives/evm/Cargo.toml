@@ -2,7 +2,7 @@
 name = "fp-evm"
 version = "3.0.0-dev"
 license = "Apache-2.0"
-authors = ["Axia Technologies <admin@parity.io>"]
+authors = ["Axia Technologies <admin@axia.io>"]
 edition = "2021"
 homepage = "https://axlib.io"
 repository = "https://github.com/paritytech/frontier/"
