@@ -86,13 +86,13 @@ pub mod frontier_backend_client {
 		B: BlockT,
 		B: BlockT<Hash = H256> + Send + Sync + 'static,
 	{
-		let substrate_hash = backend
+		let axlib_hash = backend
 			.mapping()
 			.block_hash(&hash)
 			.map_err(|err| internal_err(format!("fetch aux store failed: {:?}", err)))?;
 
-		if let Some(substrate_hash) = substrate_hash {
-			return Ok(Some(BlockId::Hash(substrate_hash)));
+		if let Some(axlib_hash) = axlib_hash {
+			return Ok(Some(BlockId::Hash(axlib_hash)));
 		}
 		Ok(None)
 	}

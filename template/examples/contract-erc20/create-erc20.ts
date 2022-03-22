@@ -52,8 +52,8 @@ async function init() {
 	const bob = keyring.addFromUri('//Bob', { name: 'Bob default' });
 
 	const { nonce, data: balance } = await api.query.system.account(alice.address);
-	console.log(`Alice Substrate Account: ${alice.address}`);
-	console.log(`Alice Substrate Account (nonce: ${nonce}) balance, free: ${balance.free.toHex()}`);
+	console.log(`Alice Axlib Account: ${alice.address}`);
+	console.log(`Alice Axlib Account (nonce: ${nonce}) balance, free: ${balance.free.toHex()}`);
 
 	const aliceEvmAccount = `0x${crypto.blake2AsHex(crypto.decodeAddress(alice.address), 256).substring(26)}`;
 
@@ -106,7 +106,7 @@ async function step2(api: ApiPromise, alice: KeyringPair, contractAddress: strin
 
 	// Retrieve Alice account with new nonce value
 	const { nonce, data: balance } = await api.query.system.account(alice.address);
-	console.log(`Alice Substrate Account (nonce: ${nonce}) balance, free: ${balance.free}`);
+	console.log(`Alice Axlib Account (nonce: ${nonce}) balance, free: ${balance.free}`);
 
 	const accountCode = (await api.query.evm.accountCodes(contractAddress)).toString();
 	console.log(`Contract account code: ${accountCode.substring(0, 16)}...${accountCode.substring(accountCode.length - 16)}`);
@@ -164,7 +164,7 @@ async function step4(api: ApiPromise, bob: KeyringPair, contractAddress: string)
 
 	// Retrieve Bob account with new nonce value
 	const { nonce, data: balance } = await api.query.system.account(bob.address);
-	console.log(`Bob Substrate Account (nonce: ${nonce}) balance, free: ${balance.free}`);
+	console.log(`Bob Axlib Account (nonce: ${nonce}) balance, free: ${balance.free}`);
 	const bobEvmAccount = `0x${crypto.blake2AsHex(crypto.decodeAddress(bob.address), 256).substring(26)}`;
 
 	console.log(`Bob EVM Account: ${bobEvmAccount}`);

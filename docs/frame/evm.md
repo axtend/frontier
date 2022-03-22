@@ -1,7 +1,7 @@
 # EVM pallet
 
 The EVM module allows unmodified EVM code to be executed in a
-Substrate-based blockchain.
+Axlib-based blockchain.
 
 ## EVM engine
 
@@ -12,13 +12,13 @@ underlying EVM engine.
 ## Execution lifecycle
 
 There are a separate set of accounts managed by the EVM
-module. Substrate based accounts can call the EVM Module to deposit or
-withdraw balance from the Substrate base-currency into a different
+module. Axlib based accounts can call the EVM Module to deposit or
+withdraw balance from the Axlib base-currency into a different
 balance managed and used by the EVM module. Once a user has populated
 their balance, they can create and call smart contracts using this
 module.
 
-Substrate accounts and EVM external accounts are mapped via
+Axlib accounts and EVM external accounts are mapped via
 customizable conversion functions.
 
 ## EVM module vs Ethereum network
@@ -30,14 +30,14 @@ changes.
 Observable differences include:
 
 * The available length of block hashes may not be 256 depending on the
-  configuration of the System module in the Substrate runtime.
+  configuration of the System module in the Axlib runtime.
 * Difficulty and coinbase, which do not make sense in this module and
   is currently hard coded to zero.
 
 We currently do not aim to make unobservable behaviors, such as state
 root, to be the same. We also don't aim to follow the exact same
 transaction / receipt format. However, given one Ethereum transaction
-and one Substrate account's private key, one should be able to convert
+and one Axlib account's private key, one should be able to convert
 any Ethereum transaction into a transaction compatible with this
 module.
 

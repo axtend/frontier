@@ -1,13 +1,13 @@
 [package]
 name = "frontier-template-node"
 version = "0.0.0"
-authors = ["Substrate DevHub <https://github.com/substrate-developer-hub>"]
-description = "A fresh FRAME-based Substrate node, ready for hacking."
+authors = ["Axlib DevHub <https://github.com/axlib-developer-hub>"]
+description = "A fresh FRAME-based Axlib node, ready for hacking."
 edition = "2021"
 license = "Unlicense"
 build = "build.rs"
-homepage = "https://substrate.io"
-repository = "https://github.com/substrate-developer-hub/frontier-node-template/"
+homepage = "https://axlib.io"
+repository = "https://github.com/axlib-developer-hub/frontier-node-template/"
 publish = false
 
 [package.metadata.docs.rs]
@@ -48,7 +48,7 @@ sc-service = { version = "0.10.0-dev", git = "https://github.com/axtend/axlib", 
 sc-telemetry = { version = "4.0.0-dev", git = "https://github.com/axtend/axlib", branch = "axlib" }
 sc-transaction-pool = { version = "4.0.0-dev", git = "https://github.com/axtend/axlib", branch = "axlib" }
 sc-transaction-pool-api = { version = "4.0.0-dev", git = "https://github.com/axtend/axlib", branch = "axlib" }
-substrate-frame-rpc-system = { version = "4.0.0-dev", git = "https://github.com/axtend/axlib", branch = "axlib" }
+axlib-frame-rpc-system = { version = "4.0.0-dev", git = "https://github.com/axtend/axlib", branch = "axlib" }
 pallet-transaction-payment-rpc = { version = "4.0.0-dev", git = "https://github.com/axtend/axlib", branch = "axlib" }
 
 # These dependencies are used for runtime benchmarking
@@ -73,7 +73,7 @@ pallet-evm = { path = "../../frame/evm" }
 frontier-template-runtime = { path = "../runtime", default-features = false, features = ["std"] }
 
 [build-dependencies]
-substrate-build-script-utils = { version = "3.0.0", git = "https://github.com/axtend/axlib", branch = "axlib" }
+axlib-build-script-utils = { version = "3.0.0", git = "https://github.com/axtend/axlib", branch = "axlib" }
 
 [features]
 default = ["aura"]

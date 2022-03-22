@@ -1,12 +1,12 @@
 # Dynamic fee pallet
 
-The dynamic fee pallet allows a Substrate blockchain with Frontier to simulate
+The dynamic fee pallet allows a Axlib blockchain with Frontier to simulate
 the functionality of Ethereum dynamic fee adjustment.
 
 ## Overview
 
 The pallet works by keeping track of the current minimum gas price in a
-Substrate storage `MinGasPrice`. Each Substrate block, the proposer can submit
+Axlib storage `MinGasPrice`. Each Axlib block, the proposer can submit
 an inherent extrinsic `note_min_gas_price_target`. When a block is built, the
 minimum gas price is adjusted similar to Ethereum's algorithm.
 

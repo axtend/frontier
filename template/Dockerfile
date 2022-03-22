@@ -11,7 +11,7 @@ WORKDIR /frontier
 RUN apt-get update -y && \
 	apt-get install -y cmake pkg-config libssl-dev git gcc build-essential clang libclang-dev
 
-# Install rust wasm. Needed for substrate wasm engine
+# Install rust wasm. Needed for axlib wasm engine
 RUN rustup target add wasm32-unknown-unknown
 
 # Download Frontier repo

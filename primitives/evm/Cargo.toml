@@ -4,9 +4,9 @@ version = "3.0.0-dev"
 license = "Apache-2.0"
 authors = ["Parity Technologies <admin@parity.io>"]
 edition = "2021"
-homepage = "https://substrate.io"
+homepage = "https://axlib.io"
 repository = "https://github.com/paritytech/frontier/"
-description = "Primitive EVM abstractions for Substrate."
+description = "Primitive EVM abstractions for Axlib."
 documentation = "https://docs.rs/sp-evm"
 
 [package.metadata.docs.rs]

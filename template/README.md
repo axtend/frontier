@@ -1,7 +1,7 @@
-# Substrate Frontier Node Template
+# Axlib Frontier Node Template
 
-A [FRAME](https://docs.substrate.io/v3/runtime/frame)-based
-[Substrate](https://substrate.io) node with the Ethereum RPC support, ready for hacking
+A [FRAME](https://docs.axlib.io/v3/runtime/frame)-based
+[Axlib](https://axlib.io) node with the Ethereum RPC support, ready for hacking
 :rocket:
 
 ## Generation & Upstream
@@ -12,13 +12,13 @@ be used to generate a stand-alone template for use in an independent project via
 [template generation script](https://github.com/paritytech/frontier/blob/master/docs/node-template-release.md).
 
 A ready-to-use template generated this way is hosted for each Frontier release on the
-[substrate-developer-hub/frontier-node-template](https://github.com/substrate-developer-hub/frontier-node-template)
+[axlib-developer-hub/frontier-node-template](https://github.com/axlib-developer-hub/frontier-node-template)
 repository.
 
 This template was originally forked from the
-[Substrate Node Template](https://github.com/substrate-developer-hub/substrate-node-template). You
+[Axlib Node Template](https://github.com/axlib-developer-hub/axlib-node-template). You
 can find more information on features on this template there, and more detailed usage on the
-[Substrate Developer Hub Tutorials](https://docs.substrate.io/tutorials/v3/) that use this heavily.
+[Axlib Developer Hub Tutorials](https://docs.axlib.io/tutorials/v3/) that use this heavily.
 
 ## Build & Run
 
@@ -63,8 +63,8 @@ docker run -t frontier-node-dev
 
 The development [chain spec](node/src/chain_spec.rs) included with this project defines a genesis
 block that has been pre-configured with an EVM account for
-[Alice](https://docs.substrate.io/v3/tools/subkey#well-known-keys). When
-[a development chain is started](https://github.com/substrate-developer-hub/substrate-node-template#run),
+[Alice](https://docs.axlib.io/v3/tools/subkey#well-known-keys). When
+[a development chain is started](https://github.com/axlib-developer-hub/axlib-node-template#run),
 Alice's EVM account will be funded with a large amount of Ether. The
 [Axia UI](https://axia.js.org/apps/#?rpc=ws://127.0.0.1:9944) can be used to see the details
 of Alice's EVM account. In order to view an EVM account, use the `Developer` tab of the Axia UI
@@ -123,7 +123,7 @@ The [`truffle`](examples/contract-erc20/truffle) directory contains a
 [an ERC-20 token](examples/contract-erc20/truffle/contracts/MyToken.sol). For convenience, this
 repository also contains
 [the compiled bytecode of this token contract](examples/contract-erc20/truffle/contracts/MyToken.json#L259),
-which can be used to deploy it to the Substrate blockchain.
+which can be used to deploy it to the Axlib blockchain.
 
 > Further reading:
 > [the ERC-20 token standard](https://github.com/danforbes/danforbes/blob/master/writings/eth-dev.md#EIP-20-ERC-20-Token-Standard)

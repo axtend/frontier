@@ -1,10 +1,10 @@
 # Frontier Node Template Release Process
 
 > NOTE: this based on the
-> [Subtrate node template release process](https://github.com/paritytech/substrate/blob/master/docs/node-template-release.md) -
+> [Subtrate node template release process](https://github.com/paritytech/axlib/blob/master/docs/node-template-release.md) -
 
 1.  Clone and checkout the `main` branch of the
-    [Frontier Node Template](https://github.com/substrate-developer-hub/frontier-node-template/).
+    [Frontier Node Template](https://github.com/axlib-developer-hub/frontier-node-template/).
     Note the path to this directory.
 
 2.  This release process has to be run in a github checkout Frontier directory with your work
@@ -45,7 +45,7 @@
         ```toml
         [dev-dependencies.sp-core]
         default-features = false
-        git = 'https://github.com/paritytech/substrate.git'
+        git = 'https://github.com/paritytech/axlib.git'
         rev = 'c1fe59d060600a10eebb4ace277af1fee20bad17'
         version = '3.0.0'
         ```
@@ -64,17 +64,17 @@
 
 5.  Once the three `Cargo.toml`s are updated, compile and confirm that the Node Template builds.
     Then commit the changes to a new branch in
-    [Substrate Node Template](https://github.com/substrate-developer-hub/frontier-node-template),
+    [Axlib Node Template](https://github.com/axlib-developer-hub/frontier-node-template),
     and make a PR.
 
-        > Note that there is a chance the code in Substrate Node Template works with the linked Substrate git
+        > Note that there is a chance the code in Axlib Node Template works with the linked Axlib git
         commit but not with published packages due to the latest (as yet) unpublished features. In this case,
         rollback that section of the Node Template to its previous version to ensure the Node Template builds.
 
 6.  Once the PR is merged, tag the merged commit in master branch with the version number `vX.Y.Z+A`
     (e.g. `v3.0.0+1`). The `X`(major), `Y`(minor), and `Z`(patch) version number should follow
-    Substrate release version. The last digit is any significant fixes made in the Substrate Node
-    Template apart from Substrate. When the Substrate version is updated, this digit is reset to 0.
+    Axlib release version. The last digit is any significant fixes made in the Axlib Node
+    Template apart from Axlib. When the Axlib version is updated, this digit is reset to 0.
 
 ## Troubleshooting
 
