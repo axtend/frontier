@@ -22,7 +22,7 @@ use tar;
 
 use flate2::{write::GzEncoder, Compression};
 
-const FRONTIER_GIT_URL: &str = "https://github.com/paritytech/frontier.git";
+const FRONTIER_GIT_URL: &str = "https://github.com/axiatech/frontier.git";
 
 type CargoToml = HashMap<String, toml::Value>;
 

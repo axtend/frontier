@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later WITH Classpath-exception-2.0
 // This file is part of Frontier.
 //
-// Copyright (c) 2015-2020 Parity Technologies (UK) Ltd.
+// Copyright (c) 2015-2020 Axia Technologies (UK) Ltd.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -127,8 +127,8 @@ impl From<TransactionV2> for Transaction {
 				raw,
 				public_key: None,
 				chain_id: Some(U64::from(t.chain_id)),
-				standard_v: U256::from(t.odd_y_parity as u8),
-				v: U256::from(t.odd_y_parity as u8),
+				standard_v: U256::from(t.odd_y_axia as u8),
+				v: U256::from(t.odd_y_axia as u8),
 				r: U256::from(t.r.as_bytes()),
 				s: U256::from(t.s.as_bytes()),
 				access_list: Some(t.access_list),
@@ -152,8 +152,8 @@ impl From<TransactionV2> for Transaction {
 				raw,
 				public_key: None,
 				chain_id: Some(U64::from(t.chain_id)),
-				standard_v: U256::from(t.odd_y_parity as u8),
-				v: U256::from(t.odd_y_parity as u8),
+				standard_v: U256::from(t.odd_y_axia as u8),
+				v: U256::from(t.odd_y_axia as u8),
 				r: U256::from(t.r.as_bytes()),
 				s: U256::from(t.s.as_bytes()),
 				access_list: Some(t.access_list),

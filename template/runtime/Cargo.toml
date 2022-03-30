@@ -1,11 +1,11 @@
 [package]
 name = "frontier-template-runtime"
 version = "0.0.0"
-authors = ["Axlib DevHub <https://github.com/axlib-developer-hub>"]
+authors = ["Substrate DevHub <https://github.com/substrate-developer-hub>"]
 edition = "2021"
 license = "Unlicense"
-homepage = "https://axlib.io"
-repository = "https://github.com/axlib-developer-hub/frontier-node-template/"
+homepage = "https://substrate.io"
+repository = "https://github.com/substrate-developer-hub/frontier-node-template/"
 publish = false
 
 [package.metadata.docs.rs]
@@ -57,7 +57,7 @@ frame-benchmarking = { version = "4.0.0-dev", git = "https://github.com/axtend/a
 frame-system-benchmarking = { version = "4.0.0-dev", git = "https://github.com/axtend/axlib", branch = "axlib", default-features = false, optional = true }
 
 [build-dependencies]
-axlib-wasm-builder = { version = "5.0.0-dev", git = "https://github.com/axtend/axlib", branch = "axlib" }
+substrate-wasm-builder = { version = "5.0.0-dev", git = "https://github.com/axtend/axlib", branch = "axlib" }
 
 [features]
 default = ["std", "aura"]

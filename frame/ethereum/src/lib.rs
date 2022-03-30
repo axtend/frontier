@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // This file is part of Frontier.
 //
-// Copyright (c) 2020 Parity Technologies (UK) Ltd.
+// Copyright (c) 2020 Axia Technologies (UK) Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -386,7 +386,7 @@ impl<T: Config> Pallet<T> {
 			Transaction::EIP2930(t) => {
 				sig[0..32].copy_from_slice(&t.r[..]);
 				sig[32..64].copy_from_slice(&t.s[..]);
-				sig[64] = t.odd_y_parity as u8;
+				sig[64] = t.odd_y_axia as u8;
 				msg.copy_from_slice(
 					&ethereum::EIP2930TransactionMessage::from(t.clone()).hash()[..],
 				);
@@ -394,7 +394,7 @@ impl<T: Config> Pallet<T> {
 			Transaction::EIP1559(t) => {
 				sig[0..32].copy_from_slice(&t.r[..]);
 				sig[32..64].copy_from_slice(&t.s[..]);
-				sig[64] = t.odd_y_parity as u8;
+				sig[64] = t.odd_y_axia as u8;
 				msg.copy_from_slice(
 					&ethereum::EIP1559TransactionMessage::from(t.clone()).hash()[..],
 				);

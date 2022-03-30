@@ -12,7 +12,7 @@ use std::{collections::BTreeMap, str::FromStr};
 // The URL for the telemetry server.
 // const STAGING_TELEMETRY_URL: &str = "wss://telemetry.axia.io/submit/";
 
-/// Specialized `ChainSpec`. This is a specialization of the general Axlib ChainSpec type.
+/// Specialized `ChainSpec`. This is a specialization of the general Substrate ChainSpec type.
 pub type ChainSpec = sc_service::GenericChainSpec<GenesisConfig>;
 
 /// Generate a crypto pair from seed.

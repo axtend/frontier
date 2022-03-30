@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "description": "Frontier documentation.",
   "authors": {
-    "name": "admin@parity.io",
-    "email": "Parity Technologies"
+    "name": "admin@axia.io",
+    "email": "Axia Technologies"
   },
-  "repository": "https://github.com/paritytech/frontier",
+  "repository": "https://github.com/axiatech/frontier",
   "scripts": {
     "dev": "vuepress dev .",
     "build": "vuepress build ."

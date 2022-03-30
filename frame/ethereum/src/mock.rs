@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // This file is part of Frontier.
 //
-// Copyright (c) 2020 Parity Technologies (UK) Ltd.
+// Copyright (c) 2020 Axia Technologies (UK) Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -386,7 +386,7 @@ impl EIP2930UnsignedTransaction {
 			value: msg.value,
 			input: msg.input.clone(),
 			access_list: msg.access_list,
-			odd_y_parity: recid.serialize() != 0,
+			odd_y_axia: recid.serialize() != 0,
 			r,
 			s,
 		})
@@ -438,7 +438,7 @@ impl EIP1559UnsignedTransaction {
 			value: msg.value,
 			input: msg.input.clone(),
 			access_list: msg.access_list,
-			odd_y_parity: recid.serialize() != 0,
+			odd_y_axia: recid.serialize() != 0,
 			r,
 			s,
 		})

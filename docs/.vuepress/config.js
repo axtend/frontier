@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Frontier',
-  description: 'Ethereum compatibility layer for Axlib',
+  description: 'Ethereum compatibility layer for Substrate',
   base: '/frontier/',
 
   head: [
@@ -10,13 +10,13 @@ module.exports = {
   ],
 
   themeConfig: {
-    repo: 'https://github.com/paritytech/frontier',
+    repo: 'https://github.com/axiatech/frontier',
     editLinks: false,
     docsDir: 'docs',
     editLinkText: '',
     lastUpdated: false,
     nav: [
-      { text: 'API reference', link: 'https://paritytech.github.io/frontier/rustdocs/pallet_evm' }
+      { text: 'API reference', link: 'https://axiatech.github.io/frontier/rustdocs/pallet_evm' }
     ],
     sidebar: [
       'overview',

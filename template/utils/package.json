@@ -1,5 +1,5 @@
 {
-  "name": "axlib-evm-utils",
+  "name": "substrate-evm-utils",
   "version": "0.0.0",
   "dependencies": {
     "@axia/util-crypto": "^2.2.1",

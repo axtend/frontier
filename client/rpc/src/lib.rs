@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later WITH Classpath-exception-2.0
 // This file is part of Frontier.
 //
-// Copyright (c) 2020 Parity Technologies (UK) Ltd.
+// Copyright (c) 2020 Axia Technologies (UK) Ltd.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -86,13 +86,13 @@ pub mod frontier_backend_client {
 		B: BlockT,
 		B: BlockT<Hash = H256> + Send + Sync + 'static,
 	{
-		let axlib_hash = backend
+		let substrate_hash = backend
 			.mapping()
 			.block_hash(&hash)
 			.map_err(|err| internal_err(format!("fetch aux store failed: {:?}", err)))?;
 
-		if let Some(axlib_hash) = axlib_hash {
-			return Ok(Some(BlockId::Hash(axlib_hash)));
+		if let Some(substrate_hash) = substrate_hash {
+			return Ok(Some(BlockId::Hash(substrate_hash)));
 		}
 		Ok(None)
 	}
@@ -263,13 +263,13 @@ pub fn public_key(transaction: &EthereumTransaction) -> Result<[u8; 64], sp_io::
 		EthereumTransaction::EIP2930(t) => {
 			sig[0..32].copy_from_slice(&t.r[..]);
 			sig[32..64].copy_from_slice(&t.s[..]);
-			sig[64] = t.odd_y_parity as u8;
+			sig[64] = t.odd_y_axia as u8;
 			msg.copy_from_slice(&ethereum::EIP2930TransactionMessage::from(t.clone()).hash()[..]);
 		}
 		EthereumTransaction::EIP1559(t) => {
 			sig[0..32].copy_from_slice(&t.r[..]);
 			sig[32..64].copy_from_slice(&t.s[..]);
-			sig[64] = t.odd_y_parity as u8;
+			sig[64] = t.odd_y_axia as u8;
 			msg.copy_from_slice(&ethereum::EIP1559TransactionMessage::from(t.clone()).hash()[..]);
 		}
 	}
@@ -376,7 +376,7 @@ impl EthSigner for EthDevSigner {
 								value: m.value,
 								input: m.input.clone(),
 								access_list: m.access_list,
-								odd_y_parity: recid.serialize() != 0,
+								odd_y_axia: recid.serialize() != 0,
 								r,
 								s,
 							}));
@@ -399,7 +399,7 @@ impl EthSigner for EthDevSigner {
 								value: m.value,
 								input: m.input.clone(),
 								access_list: m.access_list,
-								odd_y_parity: recid.serialize() != 0,
+								odd_y_axia: recid.serialize() != 0,
 								r,
 								s,
 							}));

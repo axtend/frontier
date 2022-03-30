@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // This file is part of Frontier.
 //
-// Copyright (c) 2020 Parity Technologies (UK) Ltd.
+// Copyright (c) 2020 Axia Technologies (UK) Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -114,34 +114,34 @@ fn fail_call_return_ok() {
 #[test]
 fn fee_deduction() {
 	new_test_ext().execute_with(|| {
-		// Create an EVM address and the corresponding Axlib address that will be charged fees and refunded
+		// Create an EVM address and the corresponding Substrate address that will be charged fees and refunded
 		let evm_addr = H160::from_str("1000000000000000000000000000000000000003").unwrap();
-		let axlib_addr = <Test as Config>::AddressMapping::into_account_id(evm_addr);
+		let substrate_addr = <Test as Config>::AddressMapping::into_account_id(evm_addr);
 
 		// Seed account
-		let _ = <Test as Config>::Currency::deposit_creating(&axlib_addr, 100);
-		assert_eq!(Balances::free_balance(&axlib_addr), 100);
+		let _ = <Test as Config>::Currency::deposit_creating(&substrate_addr, 100);
+		assert_eq!(Balances::free_balance(&substrate_addr), 100);
 
 		// Deduct fees as 10 units
 		let imbalance = <<Test as Config>::OnChargeTransaction as OnChargeEVMTransaction<Test>>::withdraw_fee(&evm_addr, U256::from(10)).unwrap();
-		assert_eq!(Balances::free_balance(&axlib_addr), 90);
+		assert_eq!(Balances::free_balance(&substrate_addr), 90);
 
 		// Refund fees as 5 units
 		<<Test as Config>::OnChargeTransaction as OnChargeEVMTransaction<Test>>::correct_and_deposit_fee(&evm_addr, U256::from(5), imbalance);
-		assert_eq!(Balances::free_balance(&axlib_addr), 95);
+		assert_eq!(Balances::free_balance(&substrate_addr), 95);
 	});
 }
 
 #[test]
 fn ed_0_refund_patch_works() {
 	new_test_ext().execute_with(|| {
-		// Verifies that the OnChargeEVMTransaction patch is applied and fixes a known bug in Axlib for evm transactions.
-		// https://github.com/paritytech/axlib/issues/10117
+		// Verifies that the OnChargeEVMTransaction patch is applied and fixes a known bug in Substrate for evm transactions.
+		// https://github.com/axiatech/substrate/issues/10117
 		let evm_addr = H160::from_str("1000000000000000000000000000000000000003").unwrap();
-		let axlib_addr = <Test as Config>::AddressMapping::into_account_id(evm_addr);
+		let substrate_addr = <Test as Config>::AddressMapping::into_account_id(evm_addr);
 
-		let _ = <Test as Config>::Currency::deposit_creating(&axlib_addr, 21_777_000_000_000);
-		assert_eq!(Balances::free_balance(&axlib_addr), 21_777_000_000_000);
+		let _ = <Test as Config>::Currency::deposit_creating(&substrate_addr, 21_777_000_000_000);
+		assert_eq!(Balances::free_balance(&substrate_addr), 21_777_000_000_000);
 
 		let _ = EVM::call(
 			Origin::root(),
@@ -156,20 +156,20 @@ fn ed_0_refund_patch_works() {
 			Vec::new(),
 		);
 		// All that was due, was refunded.
-		assert_eq!(Balances::free_balance(&axlib_addr), 776_000_000_000);
+		assert_eq!(Balances::free_balance(&substrate_addr), 776_000_000_000);
 	});
 }
 
 #[test]
 fn ed_0_refund_patch_is_required() {
 	new_test_ext().execute_with(|| {
-		// This test proves that the patch is required, verifying that the current Axlib behaviour is incorrect
+		// This test proves that the patch is required, verifying that the current Substrate behaviour is incorrect
 		// for ED 0 configured chains.
 		let evm_addr = H160::from_str("1000000000000000000000000000000000000003").unwrap();
-		let axlib_addr = <Test as Config>::AddressMapping::into_account_id(evm_addr);
+		let substrate_addr = <Test as Config>::AddressMapping::into_account_id(evm_addr);
 
-		let _ = <Test as Config>::Currency::deposit_creating(&axlib_addr, 100);
-		assert_eq!(Balances::free_balance(&axlib_addr), 100);
+		let _ = <Test as Config>::Currency::deposit_creating(&substrate_addr, 100);
+		assert_eq!(Balances::free_balance(&substrate_addr), 100);
 
 		// Drain funds
 		let _ =
@@ -178,19 +178,19 @@ fn ed_0_refund_patch_is_required() {
 				U256::from(100),
 			)
 			.unwrap();
-		assert_eq!(Balances::free_balance(&axlib_addr), 0);
+		assert_eq!(Balances::free_balance(&substrate_addr), 0);
 
 		// Try to refund. With ED 0, although the balance is now 0, the account still exists.
 		// So its expected that calling `deposit_into_existing` results in the AccountData to increase the Balance.
 		//
 		// Is not the case, and this proves that the refund logic needs to be handled taking this into account.
 		assert_eq!(
-			<Test as Config>::Currency::deposit_into_existing(&axlib_addr, 5u32.into())
+			<Test as Config>::Currency::deposit_into_existing(&substrate_addr, 5u32.into())
 				.is_err(),
 			true
 		);
 		// Balance didn't change, and should be 5.
-		assert_eq!(Balances::free_balance(&axlib_addr), 0);
+		assert_eq!(Balances::free_balance(&substrate_addr), 0);
 	});
 }
 
@@ -334,22 +334,22 @@ fn handle_sufficient_reference() {
 	new_test_ext().execute_with(|| {
 		let addr = H160::from_str("1230000000000000000000000000000000000001").unwrap();
 		let addr_2 = H160::from_str("1234000000000000000000000000000000000001").unwrap();
-		let axlib_addr = <Test as Config>::AddressMapping::into_account_id(addr);
-		let axlib_addr_2 = <Test as Config>::AddressMapping::into_account_id(addr_2);
+		let substrate_addr = <Test as Config>::AddressMapping::into_account_id(addr);
+		let substrate_addr_2 = <Test as Config>::AddressMapping::into_account_id(addr_2);
 
 		// Sufficients should increase when creating EVM accounts.
 		let _ = <crate::AccountCodes<Test>>::insert(addr, &vec![0]);
-		let account = frame_system::Account::<Test>::get(axlib_addr);
+		let account = frame_system::Account::<Test>::get(substrate_addr);
 		// Using storage is not correct as it leads to a sufficient reference mismatch.
 		assert_eq!(account.sufficients, 0);
 
 		// Using the create / remove account functions is the correct way to handle it.
 		EVM::create_account(addr_2, vec![1, 2, 3]);
-		let account_2 = frame_system::Account::<Test>::get(axlib_addr_2);
+		let account_2 = frame_system::Account::<Test>::get(substrate_addr_2);
 		// We increased the sufficient reference by 1.
 		assert_eq!(account_2.sufficients, 1);
 		EVM::remove_account(&addr_2);
-		let account_2 = frame_system::Account::<Test>::get(axlib_addr_2);
+		let account_2 = frame_system::Account::<Test>::get(substrate_addr_2);
 		// We decreased the sufficient reference by 1 on removing the account.
 		assert_eq!(account_2.sufficients, 0);
 	});
@@ -388,16 +388,16 @@ fn test_hotfix_inc_account_sufficients_increments_if_nonce_nonzero() {
 	new_test_ext().execute_with(|| {
 		let addr_1 = H160::from_str("1230000000000000000000000000000000000001").unwrap();
 		let addr_2 = H160::from_str("1234000000000000000000000000000000000001").unwrap();
-		let axlib_addr_1 = <Test as Config>::AddressMapping::into_account_id(addr_1);
-		let axlib_addr_2 = <Test as Config>::AddressMapping::into_account_id(addr_2);
+		let substrate_addr_1 = <Test as Config>::AddressMapping::into_account_id(addr_1);
+		let substrate_addr_2 = <Test as Config>::AddressMapping::into_account_id(addr_2);
 
 		<crate::AccountCodes<Test>>::insert(addr_1, &vec![0]);
 		<crate::AccountCodes<Test>>::insert(addr_2, &vec![0]);
 
-		frame_system::Pallet::<Test>::inc_account_nonce(&axlib_addr_1);
+		frame_system::Pallet::<Test>::inc_account_nonce(&substrate_addr_1);
 
-		let account_1 = frame_system::Account::<Test>::get(axlib_addr_1);
-		let account_2 = frame_system::Account::<Test>::get(axlib_addr_2);
+		let account_1 = frame_system::Account::<Test>::get(substrate_addr_1);
+		let account_2 = frame_system::Account::<Test>::get(substrate_addr_2);
 		assert_eq!(account_1.nonce, 1);
 		assert_eq!(account_1.sufficients, 0);
 		assert_eq!(account_2.nonce, 0);
@@ -406,8 +406,8 @@ fn test_hotfix_inc_account_sufficients_increments_if_nonce_nonzero() {
 		EVM::hotfix_inc_account_sufficients(Origin::signed(H160::default()), vec![addr_1, addr_2])
 			.unwrap();
 
-		let account_1 = frame_system::Account::<Test>::get(axlib_addr_1);
-		let account_2 = frame_system::Account::<Test>::get(axlib_addr_2);
+		let account_1 = frame_system::Account::<Test>::get(substrate_addr_1);
+		let account_2 = frame_system::Account::<Test>::get(substrate_addr_2);
 		assert_eq!(account_1.nonce, 1);
 		assert_eq!(account_1.sufficients, 1);
 		assert_eq!(account_2.nonce, 0);
@@ -419,22 +419,22 @@ fn test_hotfix_inc_account_sufficients_increments_if_nonce_nonzero() {
 fn test_hotfix_inc_account_sufficients_increments_with_saturation_if_nonce_nonzero() {
 	new_test_ext().execute_with(|| {
 		let addr = H160::from_str("1230000000000000000000000000000000000001").unwrap();
-		let axlib_addr = <Test as Config>::AddressMapping::into_account_id(addr);
+		let substrate_addr = <Test as Config>::AddressMapping::into_account_id(addr);
 
 		<crate::AccountCodes<Test>>::insert(addr, &vec![0]);
-		frame_system::Account::<Test>::mutate(axlib_addr, |x| {
+		frame_system::Account::<Test>::mutate(substrate_addr, |x| {
 			x.nonce = 1;
 			x.sufficients = u32::MAX;
 		});
 
-		let account = frame_system::Account::<Test>::get(axlib_addr);
+		let account = frame_system::Account::<Test>::get(substrate_addr);
 
 		assert_eq!(account.sufficients, u32::MAX);
 		assert_eq!(account.nonce, 1);
 
 		EVM::hotfix_inc_account_sufficients(Origin::signed(H160::default()), vec![addr]).unwrap();
 
-		let account = frame_system::Account::<Test>::get(axlib_addr);
+		let account = frame_system::Account::<Test>::get(substrate_addr);
 		assert_eq!(account.sufficients, u32::MAX);
 		assert_eq!(account.nonce, 1);
 	});

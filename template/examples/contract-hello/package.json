@@ -5,18 +5,18 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/paritytech/frontier.git"
+    "url": "git+https://github.com/axiatech/frontier.git"
   },
   "keywords": [
     "ethereum",
-    "axlib"
+    "substrate"
   ],
-  "author": "Parity Technologies <admin@parity.io>",
+  "author": "Axia Technologies <admin@axia.io>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/paritytech/frontier/issues"
+    "url": "https://github.com/axiatech/frontier/issues"
   },
-  "homepage": "https://github.com/paritytech/frontier",
+  "homepage": "https://github.com/axiatech/frontier",
   "dependencies": {
     "web3": "^1.2.8"
   }
